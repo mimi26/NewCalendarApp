@@ -4,6 +4,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+
+//const authRoutes = require('./routes/auth');
 //var users = require('./routes/users');
 
 var app = express();
@@ -16,6 +18,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'client/build')));
+
+//app.use('/auth', authRoutes);
 
 app.get('/api', (req, res) => {
   res.json({ message: 'hello world' });

@@ -6,6 +6,7 @@ import axios from 'axios';
 import AddEventForm from './AddEventForm';
 import EventListDisplay from './EventListDisplay';
 import RegisterForm from './RegisterForm';
+import LoginForm from './LoginForm';
 
 
 export default class App extends React.Component {
@@ -45,6 +46,14 @@ export default class App extends React.Component {
       <BrowserRouter>
         <div className="jumbotron">
           <div className="container">
+            <ul>
+              <li>
+                <Link to="/register">Register</Link>
+              </li>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+            </ul>
             <h1>Event Scheduler</h1>
             <AddEventForm
               postListData={this.postListData}
@@ -57,6 +66,7 @@ export default class App extends React.Component {
             <div className="main">
             <Switch>
               <Route exact path="/register" component={RegisterForm} />
+              <Route exact path="/login" component={LoginForm} />
             </Switch>
           </div>
         </div>

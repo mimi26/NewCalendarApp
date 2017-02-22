@@ -1,16 +1,15 @@
 import React from 'react';
 import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
 
-export default class RegisterForm extends React.Component {
-    constructor(props) {
+export default class LoginForm extends React.Component {
+
+
+  constructor(props) {
     super(props);
 
     this.state = {
-      firstName: '',
-      lastname: '',
       userName: '',
-      password: '',
-      email: ''
+      password: ''
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -23,42 +22,24 @@ export default class RegisterForm extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({ value: event.target.value });
   }
 
   render() {
     return (
       <div>
-      <ul>
+        <ul>
           <li>
             <Link to="/">Home</Link>
           </li>
         </ul>
         <form onSubmit={this.handleSubmit}>
-          <label>First Name:</label>
-          <input
-            type="text"
-            value={this.state.firstName}
-            onChange={this.handleChange}
-          />
-          <label>Last Name:</label>
-          <input
-            type="text"
-            value={this.state.lastname}
-            onChange={this.handleChange}
-          />
-          <label>Email:</label>
-          <input
-            type="text"
-            value={this.state.email}
-            onChange={this.handleChange}
-          />
           <label>Username:</label>
-            <input
-              type="text"
-              value={this.state.userName}
-              onChange={this.handleChange}
-            />
+          <input
+            type="text"
+            value={this.state.userName}
+            onChange={this.handleChange}
+          />
           <label>Password:</label>
           <input
             type="password"
@@ -67,11 +48,10 @@ export default class RegisterForm extends React.Component {
           />
           <input
             type="submit"
-            value="Register"
+            value="Login"
           />
-       </form>
+        </form>
       </div>
     );
   }
 }
-
