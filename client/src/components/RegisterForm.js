@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
 
 export default class RegisterForm extends React.Component {
@@ -15,11 +16,19 @@ export default class RegisterForm extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.postUserRegistrationData = this.postUserRegistrationData.bind(this);
   }
 
   handleSubmit(event) {
     event.preventDefault();
+    this.postUserRegistrationData(this.state);
     //reroute back to home
+  }
+
+  postUserRegistrationData(data) {
+    axios.post('/api/register', { data })
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
   }
 
   handleChange(event) {

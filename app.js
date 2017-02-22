@@ -3,27 +3,42 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+const session = require('express-session');
+const passport = require('passport');
+
+const index = require('./routes/index');
+const authRoutes = require('./routes/auth.js');
+const userRoutes = require('./routes/user.js');
+const app = express();
+
 require('dotenv').config();
-
-//const authRoutes = require('./routes/auth');
-//var users = require('./routes/users');
-
-var app = express();
-
-
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(session({
+  secret: process.env.SECRET_KEY,
+  resave: false,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'client/build')));
 
-//app.use('/auth', authRoutes);
+app.use('/', index);
+app.use('/auth', authRoutes);
+app.use('/user', userRoutes);
+
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.get('/api', (req, res) => {
   res.json({ message: 'hello world' });
     });
+
+app.post('/api/register', (req, res) => {
+  res.json
+})
 // Always return the main index.html, so react-router can render the route in the client
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
