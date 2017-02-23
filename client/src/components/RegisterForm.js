@@ -8,13 +8,17 @@ export default class RegisterForm extends React.Component {
 
     this.state = {
       firstName: '',
-      lastname: '',
+      lastName: '',
       userName: '',
       password: '',
       email: ''
     }
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
+    this.handleLastNameChange = this.handleLastNameChange.bind(this);
+    this.handleUsernameChange = this.handleUsernameChange.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.postUserRegistrationData = this.postUserRegistrationData.bind(this);
   }
@@ -26,13 +30,29 @@ export default class RegisterForm extends React.Component {
   }
 
   postUserRegistrationData(data) {
-    axios.post('/api/register', { data })
+    axios.post('/auth/api/register', data)
     .then((res) => console.log(res))
     .catch((err) => console.log(err));
   }
 
-  handleChange(event) {
-    this.setState({value: event.target.value});
+  handleFirstNameChange(event) {
+    this.setState({ firstName : event.target.value});
+  }
+
+  handleLastNameChange(event) {
+    this.setState({ lastName : event.target.value});
+  }
+
+  handleEmailChange(event) {
+    this.setState({ email : event.target.value});
+  }
+
+  handleUsernameChange(event) {
+    this.setState({ userName : event.target.value});
+  }
+
+  handlePasswordChange(event) {
+    this.setState({ password : event.target.value});
   }
 
   render() {
@@ -48,31 +68,31 @@ export default class RegisterForm extends React.Component {
           <input
             type="text"
             value={this.state.firstName}
-            onChange={this.handleChange}
+            onChange={this.handleFirstNameChange}
           />
           <label>Last Name:</label>
           <input
             type="text"
             value={this.state.lastname}
-            onChange={this.handleChange}
+            onChange={this.handleLastNameChange}
           />
           <label>Email:</label>
           <input
             type="text"
             value={this.state.email}
-            onChange={this.handleChange}
+            onChange={this.handleEmailChange}
           />
           <label>Username:</label>
             <input
               type="text"
               value={this.state.userName}
-              onChange={this.handleChange}
+              onChange={this.handleUsernameChange}
             />
           <label>Password:</label>
           <input
             type="password"
             value={this.state.password}
-            onChange={this.handleChange}
+            onChange={this.handlePasswordChange}
           />
           <input
             type="submit"

@@ -1,5 +1,8 @@
 var express = require('express');
 var router = express.Router();
+const authHelpers = require('../auth/auth-helpers');
+const passport = require('../auth/local');
+
 
 /* GET users listing. */
 

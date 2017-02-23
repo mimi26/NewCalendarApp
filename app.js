@@ -6,9 +6,9 @@ var bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
 
-const index = require('./routes/index');
+//const index = require('./routes/index');
 const authRoutes = require('./routes/auth.js');
-const userRoutes = require('./routes/user.js');
+// const userRoutes = require('./routes/user.js');
 const app = express();
 
 require('dotenv').config();
@@ -26,23 +26,25 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(cookieParser());
 
-app.use('/', index);
-app.use('/auth', authRoutes);
-app.use('/user', userRoutes);
+//app.use('/', index);
 
+// app.use('/user', userRoutes);
+app.use('/auth', authRoutes);
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-app.get('/api', (req, res) => {
-  res.json({ message: 'hello world' });
-    });
+// app.get('/api', (req, res) => {
+//   res.json({ message: 'hello world' });
+//     });
 
 // app.post('/api/register', (req, res) => {
-//   res.json
+//   console.log(req);
 // })
 // Always return the main index.html, so react-router can render the route in the client
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
 });
+
+
 
 // // catch 404 and forward to error handler
 // app.use(function(req, res, next) {
@@ -59,7 +61,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json('error');
 });
 
 module.exports = app;
