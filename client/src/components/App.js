@@ -27,11 +27,11 @@ export default class App extends React.Component {
   }
 
   getListData() {
-    axios.get('https://calendarapp-eca54.firebaseio.com/.json')
-      .then((response) => {
-        let events = response.data;
-        this.setState({ events });
-      });
+    // axios.get('https://calendarapp-eca54.firebaseio.com/.json')
+    //   .then((response) => {
+    //     let events = response.data;
+    //     this.setState({ events });
+    //   });
   }
 
   postListData(eventData) {

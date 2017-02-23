@@ -36,9 +36,9 @@ app.get('/api', (req, res) => {
   res.json({ message: 'hello world' });
     });
 
-app.post('/api/register', (req, res) => {
-  res.json
-})
+// app.post('/api/register', (req, res) => {
+//   res.json
+// })
 // Always return the main index.html, so react-router can render the route in the client
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
