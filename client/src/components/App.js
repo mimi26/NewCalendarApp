@@ -7,6 +7,7 @@ import AddEventForm from './AddEventForm';
 import EventListDisplay from './EventListDisplay';
 import RegisterForm from './RegisterForm';
 import LoginForm from './LoginForm';
+import Nav from './Nav';
 
 
 export default class App extends React.Component {
@@ -20,11 +21,22 @@ export default class App extends React.Component {
 
   this.getListData = this.getListData.bind(this);
   this.postListData = this.postListData.bind(this);
+  this.LoginPost = this.LoginPost.bind(this);
 
   }
 
   componentDidMount() {
     this.getListData();
+    }
+
+  LoginPost(data) {
+    axios.post('/auth/api/login', data)
+    .then((response) => {
+      console.log('you are logged in!');
+      this.setState({ isLoggedIn: true })
+    }).catch((err) => {
+      console.log(err);
+    })
   }
 
   getListData() {
@@ -47,14 +59,10 @@ export default class App extends React.Component {
       <BrowserRouter>
         <div className="jumbotron">
           <div className="container">
-            <ul>
-              <li>
-                <Link to="/register">Register</Link>
-              </li>
-              <li>
-
-              </li>
-            </ul>
+          <Nav
+            isLoggedIn={this.state.isLoggedIn}
+            LoginPost={this.LoginPost}
+            />
             <h1>Event Scheduler</h1>
             <AddEventForm
               postListData={this.postListData}
@@ -63,7 +71,10 @@ export default class App extends React.Component {
             <div className="main">
             <Switch>
               <Route exact path="/register" component={RegisterForm} />
-              <Route exact path="/login" component={LoginForm} />
+              <Route exact path="/login"
+                render={() => <LoginForm
+                                LoginPost={this.LoginPost}/>}
+              />
               <Route exact path="/events"
                 render={() =>  <EventListDisplay
                                   events={this.state.events}
