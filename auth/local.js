@@ -9,13 +9,13 @@ const options = {};
 
 init();
 
-passport.use(new LocalStrategy(options, (username, passport, done) => {
+passport.use(new LocalStrategy(options, (username, password, done) => {
   //since username is unique, use findOne to find exact match to username
     models.User.findOne({
     where: { username }
   })
   .then((user) => {
-    console.log(user);
+
     //check if username exists
     if (!user) {
       return done(null, false);

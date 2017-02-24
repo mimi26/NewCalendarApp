@@ -14,7 +14,8 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      events: {}
+      events: {},
+      isLoggedIn: false
     }
 
   this.getListData = this.getListData.bind(this);
@@ -51,7 +52,7 @@ export default class App extends React.Component {
                 <Link to="/register">Register</Link>
               </li>
               <li>
-                <Link to="/login">Login</Link>
+
               </li>
             </ul>
             <h1>Event Scheduler</h1>
@@ -59,14 +60,15 @@ export default class App extends React.Component {
               postListData={this.postListData}
             />
             </div>
-            <EventListDisplay
-              events={this.state.events}
-              getListData={this.getListData}
-            />
             <div className="main">
             <Switch>
               <Route exact path="/register" component={RegisterForm} />
               <Route exact path="/login" component={LoginForm} />
+              <Route exact path="/events"
+                render={() =>  <EventListDisplay
+                                  events={this.state.events}
+                                  getListData={this.getListData}/>}
+              />
             </Switch>
           </div>
         </div>

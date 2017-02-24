@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const models = require('../db/models/index');
 
 function comparePass(userPassword, databasePassword) {
@@ -17,7 +17,7 @@ function loginRedirect(req, res, next) {
 //how to do this with data from react?
 //or, should I be doing this in react?
 function createUser(req, res, next) {
-  const salt = bcrypt.genSaltSyc();
+  const salt = bcrypt.genSaltSync();
   const hash = bcrypt.hashSync(req.body.password, salt);
  console.log(req);
   return models.User.create({

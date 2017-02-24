@@ -32,6 +32,7 @@ app.use(cookieParser());
 app.use('/auth', authRoutes);
 app.use(express.static(path.join(__dirname, 'client/build')));
 
+//use for dealing with database
 // app.get('/api', (req, res) => {
 //   res.json({ message: 'hello world' });
 //     });
@@ -56,6 +57,7 @@ app.get('*', (req, res) => {
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
+  console.log("error: ", err);
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 

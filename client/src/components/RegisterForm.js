@@ -9,7 +9,7 @@ export default class RegisterForm extends React.Component {
     this.state = {
       firstName: '',
       lastName: '',
-      userName: '',
+      username: '',
       password: '',
       email: ''
     }
@@ -48,7 +48,7 @@ export default class RegisterForm extends React.Component {
   }
 
   handleUsernameChange(event) {
-    this.setState({ userName : event.target.value});
+    this.setState({ username : event.target.value});
   }
 
   handlePasswordChange(event) {
@@ -85,7 +85,7 @@ export default class RegisterForm extends React.Component {
           <label>Username:</label>
             <input
               type="text"
-              value={this.state.userName}
+              value={this.state.username}
               onChange={this.handleUsernameChange}
             />
           <label>Password:</label>
