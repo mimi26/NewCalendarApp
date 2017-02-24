@@ -22,6 +22,7 @@ export default class App extends React.Component {
   this.getListData = this.getListData.bind(this);
   this.postListData = this.postListData.bind(this);
   this.LoginPost = this.LoginPost.bind(this);
+  this.handleLogout = this.handleLogout.bind(this);
 
   }
 
@@ -54,6 +55,10 @@ export default class App extends React.Component {
       });
   }
 
+  handleLogout() {
+    this.setState({ isLoggedIn: false });
+  }
+
   render() {
     return (
       <BrowserRouter>
@@ -62,6 +67,7 @@ export default class App extends React.Component {
           <Nav
             isLoggedIn={this.state.isLoggedIn}
             LoginPost={this.LoginPost}
+            handleLogout={this.handleLogout}
             />
             <h1>Event Scheduler</h1>
             <AddEventForm
