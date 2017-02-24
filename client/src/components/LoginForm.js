@@ -22,7 +22,7 @@ export default class LoginForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     //reroute back to home
-    this.props.LoginPost(this.state);
+    this.props.loginPost(this.state);
   }
 
   handleUsernameChange(event) {

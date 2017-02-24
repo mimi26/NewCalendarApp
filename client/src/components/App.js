@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
 import '../../src/App.css';
 import '../../src/TimePicker.css';
 import axios from 'axios';
@@ -21,20 +21,22 @@ export default class App extends React.Component {
 
   this.getListData = this.getListData.bind(this);
   this.postListData = this.postListData.bind(this);
-  this.LoginPost = this.LoginPost.bind(this);
+  this.loginPost = this.loginPost.bind(this);
   this.handleLogout = this.handleLogout.bind(this);
+  this.renderAddEventIfLoggedIn = this.renderAddEventIfLoggedIn.bind(this);
 
   }
 
-  componentDidMount() {
-    this.getListData();
-    }
+  // componentDidMount() {
+  //   this.getListData();
+  //   }
 
-  LoginPost(data) {
+  loginPost(data) {
     axios.post('/auth/api/login', data)
     .then((response) => {
       console.log('you are logged in!');
       this.setState({ isLoggedIn: true })
+      console.log('this is state.isLoggedIn in loginpost:', this.state.isLoggedIn);
     }).catch((err) => {
       console.log(err);
     })
@@ -49,15 +51,30 @@ export default class App extends React.Component {
   }
 
   postListData(eventData) {
-    axios.post('https://calendarapp-eca54.firebaseio.com/.json', { eventData })
+    axios.post('/api', eventData )
       .then((response) => {
-      this.getListData();
+        console.log(response);
+      //this.getListData();
       });
   }
 
   handleLogout() {
+
     this.setState({ isLoggedIn: false });
+    console.log('this is state.isLoggedIn in handleLogout:', this.state.isLoggedIn);
   }
+
+  renderAddEventIfLoggedIn() {
+    if(this.state.isLoggedIn) {
+      return(
+          <AddEventForm
+              postListData={this.postListData}
+            />
+        )
+    }
+  }
+
+
 
   render() {
     return (
@@ -66,26 +83,25 @@ export default class App extends React.Component {
           <div className="container">
           <Nav
             isLoggedIn={this.state.isLoggedIn}
-            LoginPost={this.LoginPost}
+            loginPost={this.loginPost}
             handleLogout={this.handleLogout}
             />
             <h1>Event Scheduler</h1>
-            <AddEventForm
-              postListData={this.postListData}
-            />
-            </div>
+           {this.renderAddEventIfLoggedIn()}
+          </div>
             <div className="main">
             <Switch>
               <Route exact path="/register" component={RegisterForm} />
               <Route exact path="/login"
                 render={() => <LoginForm
-                                LoginPost={this.LoginPost}/>}
+                                loginPost={this.loginPost}/>}
               />
               <Route exact path="/events"
                 render={() =>  <EventListDisplay
                                   events={this.state.events}
                                   getListData={this.getListData}/>}
               />
+
             </Switch>
           </div>
         </div>

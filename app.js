@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
+const events = require('./routes/events.js');
 
 //const index = require('./routes/index');
 const authRoutes = require('./routes/auth.js');
@@ -30,12 +31,13 @@ app.use(cookieParser());
 
 // app.use('/user', userRoutes);
 app.use('/auth', authRoutes);
+app.use('/events', events);
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 //use for dealing with database
-// app.get('/api', (req, res) => {
-//   res.json({ message: 'hello world' });
-//     });
+app.post('/api/new', (req, res) => {
+  res.json({ message: 'hello world' });
+    });
 
 // app.post('/api/register', (req, res) => {
 //   console.log(req);
