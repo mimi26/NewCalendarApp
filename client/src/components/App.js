@@ -23,7 +23,7 @@ export default class App extends React.Component {
   this.postListData = this.postListData.bind(this);
   this.loginPost = this.loginPost.bind(this);
   this.handleLogout = this.handleLogout.bind(this);
-  this.renderAddEventIfLoggedIn = this.renderAddEventIfLoggedIn.bind(this);
+  //this.renderAddEventIfLoggedIn = this.renderAddEventIfLoggedIn.bind(this);
 
   }
 
@@ -35,6 +35,7 @@ export default class App extends React.Component {
     axios.post('/auth/api/login', data)
     .then((response) => {
       console.log('you are logged in!');
+
       this.setState({ isLoggedIn: true })
       console.log('this is state.isLoggedIn in loginpost:', this.state.isLoggedIn);
     }).catch((err) => {
@@ -51,7 +52,7 @@ export default class App extends React.Component {
   }
 
   postListData(eventData) {
-    axios.post('/api', eventData )
+    axios.post('/events/api/new', eventData )
       .then((response) => {
         console.log(response);
       //this.getListData();
@@ -64,18 +65,6 @@ export default class App extends React.Component {
     console.log('this is state.isLoggedIn in handleLogout:', this.state.isLoggedIn);
   }
 
-  renderAddEventIfLoggedIn() {
-    if(this.state.isLoggedIn) {
-      return(
-          <AddEventForm
-              postListData={this.postListData}
-            />
-        )
-    }
-  }
-
-
-
   render() {
     return (
       <BrowserRouter>
@@ -87,7 +76,7 @@ export default class App extends React.Component {
             handleLogout={this.handleLogout}
             />
             <h1>Event Scheduler</h1>
-           {this.renderAddEventIfLoggedIn()}
+
           </div>
             <div className="main">
             <Switch>
@@ -101,6 +90,10 @@ export default class App extends React.Component {
                                   events={this.state.events}
                                   getListData={this.getListData}/>}
               />
+              <Route exact path="/new"
+                render={() => <AddEventForm
+                                postListData={this.postListData}/>}
+               />
 
             </Switch>
           </div>

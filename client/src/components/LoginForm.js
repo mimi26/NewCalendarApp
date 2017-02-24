@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 export default class LoginForm extends React.Component {
@@ -23,6 +23,8 @@ export default class LoginForm extends React.Component {
     event.preventDefault();
     //reroute back to home
     this.props.loginPost(this.state);
+
+
   }
 
   handleUsernameChange(event) {
@@ -53,6 +55,7 @@ export default class LoginForm extends React.Component {
             type="submit"
             value="Login"
           />
+
         </form>
       </div>
     );

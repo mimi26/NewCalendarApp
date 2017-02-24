@@ -3,7 +3,6 @@ import DatePicker from 'react-bootstrap-date-picker';
 import DateTime from 'react-datetime';
 import moment from 'moment';
 
-
 export default class AddEventForm extends React.Component {
 
 
@@ -32,7 +31,11 @@ export default class AddEventForm extends React.Component {
 
   handleClick(event) {
     event.preventDefault();
-    this.props.postListData(this.state);
+    this.props.postListData({
+      date: this.state.unformattedDateValue,
+      time: this.state.unformattedTimeValue,
+      event_text: this.state.eventTextValue
+    });
     this.addEventForm.reset();
     this.setState({
       unformattedDateValue: '',

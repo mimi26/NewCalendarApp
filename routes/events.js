@@ -6,7 +6,8 @@ router.post('/api/new', (req, res) => {
   models.Event.create({
     date: req.body.date,
     time: req.body.time,
-    event_text: req.body.event_text
+    event_text: req.body.event_text,
+    user_id: req.user.id
 
   }).then((response) => {
     console.log('event created');
