@@ -44,7 +44,7 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 // })
 // Always return the main index.html, so react-router can render the route in the client
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
+  res.sendFile(path.resolve(__dirname, 'client/build', '../public/index.html'));
 });
 
 
