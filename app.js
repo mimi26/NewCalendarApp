@@ -35,9 +35,9 @@ app.use('/events', events);
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 //use for dealing with database
-app.post('/api/new', (req, res) => {
-  res.json({ message: 'hello world' });
-    });
+// app.post('/api/new', (req, res) => {
+//   res.json({ message: 'hello world' });
+//     });
 
 // app.post('/api/register', (req, res) => {
 //   console.log(req);

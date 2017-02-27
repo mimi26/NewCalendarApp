@@ -20,6 +20,7 @@ export default class EventListDisplay extends React.Component {
     this.handleTimeChange = this.handleTimeChange.bind(this);
     this.handleTextChange = this.handleTextChange.bind(this);
     this.keyPress = this.keyPress.bind(this);
+    this.renderItems = this.renderItems.bind(this);
 
   }
 
@@ -52,6 +53,10 @@ export default class EventListDisplay extends React.Component {
   handleClick() {
     this.patchListData(this.state);
  }
+
+ //  handleDateChange(date) {
+ //    this.setState({ date })
+ // }
 
   handleDateChange(dateValue, formattedValue) {
     this.setState({
@@ -143,13 +148,45 @@ export default class EventListDisplay extends React.Component {
       });
   }
 
+  // renderItems() {
+  //   const events = this.props.events.data;
+  //   console.log(events);
+  //   if (events) {
+  //     events.map((item) => { return (
+  //       <li key={item.id}>hi{item.event_text}</li>
+  //     )})
+  //   } else {
+  //     return (<li>hi</li>)
+  //   }
+  // }
+
+  renderItems(key) {
+    const events = this.props.events;
+      if(events) {
+        return (
+        <div>
+          <span className="glyphicon glyphicon-remove  col-md-1 col-xs-12"></span>
+          <div id="event-data">
+            <p id="date" className="col-md-2 col-sm-6 col-xs-12"><span className="item-header">Date:</span>{events[key].date}</p>
+            <p id="time"  className="col-md-2 col-xs-12"><span className="item-header">Time:</span>{events[key].time}</p>
+            <p id="display-text" className="col-md-6 col-xs-12"><span className="item-header">Scheduled Event:</span>{events[key].event_text}</p>
+          </div>
+            <button className="btn btn-default edit-button col-md-1 col-xs-3" onClick={() => this.handleEditClick(key)}>Edit Event</button>
+          </div>
+        )
+    }
+  }
+
   render() {
+    //const events = JSON.stringify(this.props.events.data);
     const { events } = this.props;
+    //console.log(events);
     return (
       <div id="event-list">
       <h2>Scheduled Events:</h2>
-      <ul>{Object.keys(events)
-         .map((key) => { return this.renderItemOrEditField( key )})}
+      <ul>
+        {Object.keys(events)
+          .map((key) => {return this.renderItems(key)})}
       </ul>
       </div>
     );

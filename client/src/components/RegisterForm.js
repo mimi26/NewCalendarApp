@@ -58,12 +58,7 @@ export default class RegisterForm extends React.Component {
   render() {
     return (
       <div>
-      <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-        </ul>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit}   className="form">
           <label>First Name:</label>
           <input
             type="text"

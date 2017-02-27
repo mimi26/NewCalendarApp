@@ -35,10 +35,20 @@ export default class LoginForm extends React.Component {
     this.setState({ password: event.target.value });
   }
 
+  handleClick() {
+    <Link to="/"></Link>
+  }
+
+  keyPress(e) {
+    if (e.charCode === 13) {
+      this.handleClick();
+    }
+  }
+
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit}  className="form">
           <label>Username:</label>
           <input
             type="text"
@@ -50,10 +60,12 @@ export default class LoginForm extends React.Component {
             type="password"
             value={this.state.password}
             onChange={this.handlePasswordChange}
+            onKeyPress={(e) => this.keyPress(e)}
           />
           <input
             type="submit"
             value="Login"
+            onClick={this.handleClick}
           />
 
         </form>

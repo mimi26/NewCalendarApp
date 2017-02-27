@@ -25,12 +25,15 @@ export default class Nav extends React.Component {
   render() {
     return (
       <div>
-        <ul>
+        <ul className="nav">
           <li>
             <Link to="/register">Register</Link>
           </li>
           <li>
             <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/events">Scheduled Events</Link>
           </li>
           <li>
             {this.renderLoginOrLogout()}

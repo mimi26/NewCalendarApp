@@ -15,7 +15,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      events: {},
+      events: [],
       isLoggedIn: false
     }
 
@@ -27,15 +27,14 @@ export default class App extends React.Component {
 
   }
 
-  // componentDidMount() {
-  //   this.getListData();
-  //   }
+  componentDidMount() {
+    this.getListData();
+    }
 
   loginPost(data) {
     axios.post('/auth/api/login', data)
     .then((response) => {
       console.log('you are logged in!');
-
       this.setState({ isLoggedIn: true })
       console.log('this is state.isLoggedIn in loginpost:', this.state.isLoggedIn);
     }).catch((err) => {
@@ -44,25 +43,24 @@ export default class App extends React.Component {
   }
 
   getListData() {
-    // axios.get('https://calendarapp-eca54.firebaseio.com/.json')
-    //   .then((response) => {
-    //     let events = response.data;
-    //     this.setState({ events });
-    //   });
+    axios.get('events/api')
+      .then((response) => {
+        let events = response.data.data;
+      this.setState({ events });
+
+    });
+
   }
 
   postListData(eventData) {
     axios.post('/events/api/new', eventData )
       .then((response) => {
-        console.log(response);
-      //this.getListData();
+        this.getListData();
       });
   }
 
   handleLogout() {
-
     this.setState({ isLoggedIn: false });
-    console.log('this is state.isLoggedIn in handleLogout:', this.state.isLoggedIn);
   }
 
   render() {
@@ -75,7 +73,7 @@ export default class App extends React.Component {
             loginPost={this.loginPost}
             handleLogout={this.handleLogout}
             />
-            <h1>Event Scheduler</h1>
+            <h1 className="heading">Event Scheduler</h1>
 
           </div>
             <div className="main">
