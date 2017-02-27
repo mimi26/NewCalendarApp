@@ -36,8 +36,7 @@ export default class App extends React.Component {
     .then((response) => {
       console.log('you are logged in!');
       this.setState({ isLoggedIn: true })
-      console.log('this is state.isLoggedIn in loginpost:', this.state.isLoggedIn);
-    }).catch((err) => {
+      }).catch((err) => {
       console.log(err);
     })
   }
@@ -67,7 +66,7 @@ export default class App extends React.Component {
     return (
       <BrowserRouter>
         <div className="jumbotron">
-          <div className="container">
+          <div>
           <Nav
             isLoggedIn={this.state.isLoggedIn}
             loginPost={this.loginPost}
@@ -76,13 +75,14 @@ export default class App extends React.Component {
             <h1 className="heading">Event Scheduler</h1>
 
           </div>
-            <div className="main">
+            <div className="main container">
             <Switch>
               <Route exact path="/register" component={RegisterForm} />
               <Route exact path="/login"
                 render={() => <LoginForm
                                 loginPost={this.loginPost}/>}
               />
+
               <Route exact path="/events"
                 render={() =>  <EventListDisplay
                                   events={this.state.events}

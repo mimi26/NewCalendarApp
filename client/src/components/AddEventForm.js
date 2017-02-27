@@ -60,6 +60,10 @@ export default class AddEventForm extends React.Component {
     });
   }
 
+  // handleTimeChange() {
+  //   this.setState({ unformattedTimeValue: this.event.value });
+  // }
+
   handleTextChange() {
     const eventTextValue = this.eventText.value;
     this.setState({ eventTextValue });

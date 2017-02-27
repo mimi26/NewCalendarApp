@@ -10,20 +10,22 @@ router.post('/api/new', (req, res, next) => {
     user_id: req.user.id
 
   }).then((response) => {
-    console.log('event created');
+    res.send({response})
   });
 });
 
-// router.get('/api', (req, res) => {
-//   res.json({});
-// })
-
-router.get('/api', (req, res) => {
+router.get('/api', (req, res, next) => {
   models.Event.findAll({}).then((data) => {
     res.json({data})
-    console.log(JSON.stringify(data[6].event_text));
-
-  })
+   })
 })
+
+router.delete('/api/:id', (req, res) => {
+  models.Event.destroy({
+    where: { id: req.params.id }
+  }).then((event) => {
+    res.send({event})
+  });
+});
 
 module.exports = router;
