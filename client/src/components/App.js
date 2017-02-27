@@ -86,7 +86,8 @@ export default class App extends React.Component {
               <Route exact path="/events"
                 render={() =>  <EventListDisplay
                                   events={this.state.events}
-                                  getListData={this.getListData}/>}
+                                  getListData={this.getListData}
+                                  />}
               />
               <Route exact path="/new"
                 render={() => <AddEventForm

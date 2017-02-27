@@ -54,10 +54,6 @@ export default class EventListDisplay extends React.Component {
     this.patchListData(this.state);
  }
 
- //  handleDateChange(date) {
- //    this.setState({ date })
- // }
-
   handleDateChange(dateValue, formattedValue) {
     this.setState({
       unformattedDateValue: dateValue,
@@ -83,7 +79,6 @@ export default class EventListDisplay extends React.Component {
       this.handleClick(e);
     }
   }
-
 
   renderItemOrEditField(key) {
     const { events } = this.props;

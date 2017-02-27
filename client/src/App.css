@@ -43,6 +43,7 @@ h2 {
 
 .glyphicon-remove {
   width: 5px;
+  color: #990044;
  }
 
 .rdt {
@@ -86,6 +87,7 @@ li {
 
 #event-data {
   background: #eeeeee;
+  display: flex;
 }
 
 #date, #time, #display-text {
@@ -100,6 +102,7 @@ li {
 
 .heading {
   margin-top: 100px;
+  margin-left: 40px;
 }
 
 .form {
@@ -111,5 +114,7 @@ li {
 label {
   margin-top: 30px;
 }
+
+
 
 
