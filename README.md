@@ -4,6 +4,7 @@
 
 ##Link to Event Scheduler
 
+https://eventschedulerapp.herokuapp.com/events
 
 ##Description
 
