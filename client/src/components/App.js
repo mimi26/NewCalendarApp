@@ -23,7 +23,7 @@ export default class App extends React.Component {
   this.postListData = this.postListData.bind(this);
   this.loginPost = this.loginPost.bind(this);
   this.handleLogout = this.handleLogout.bind(this);
-  //this.renderAddEventIfLoggedIn = this.renderAddEventIfLoggedIn.bind(this);
+  this.renderEventsIfLoggedIn = this.renderEventsIfLoggedIn.bind(this);
 
   }
 
@@ -62,6 +62,22 @@ export default class App extends React.Component {
     this.setState({ isLoggedIn: false });
   }
 
+  renderEventsIfLoggedIn() {
+    if (this.state.isLoggedIn === true && this.state.events) {
+      return (
+        <div>
+          <AddEventForm
+            postListData={this.postListData}
+          />
+          <EventListDisplay
+            events={this.state.event}
+            getListData={this.getListData}
+          />
+        </div>
+        )
+    }
+  }
+
   render() {
     return (
       <BrowserRouter>
@@ -76,12 +92,13 @@ export default class App extends React.Component {
 
           </div>
             <div className="main container">
+
             <Switch>
               <Route exact path="/register" component={RegisterForm} />
               <Route exact path="/login"
-                render={() => <LoginForm
-                                loginPost={this.loginPost}/>}
-              />
+                render={() => (this.state.isLoggedIn ? <Redirect push to='/events' /> : <LoginForm
+                                loginPost={this.loginPost}
+                                />) } />
 
               <Route exact path="/events"
                 render={() =>  <EventListDisplay

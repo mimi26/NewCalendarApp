@@ -3,6 +3,8 @@ import axios from 'axios';
 import DatePicker from 'react-bootstrap-date-picker';
 import DateTime from 'react-datetime';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
+import AddEventForm from './AddEventForm';
 
 
 export default class EventListDisplay extends React.Component {
@@ -20,8 +22,6 @@ export default class EventListDisplay extends React.Component {
     this.handleTimeChange = this.handleTimeChange.bind(this);
     this.handleTextChange = this.handleTextChange.bind(this);
     this.keyPress = this.keyPress.bind(this);
-    this.renderItems = this.renderItems.bind(this);
-
   }
 
   handleEditClick(eventIndex) {
@@ -127,7 +127,7 @@ export default class EventListDisplay extends React.Component {
         <li>
           <div id="event-data">
           <span className="glyphicon glyphicon-remove  col-md-1 col-xs-12" onClick={() => this.handleDeleteClick(events[key].id)}></span>
-            <p id="date" className="col-md-2 col-sm-6 col-xs-12"><span className="item-header">Date:</span>{moment(events[key].date).format("MM/DD/YYYY")}</p>
+            <p id="date" className="col-md-2 col-sm-6 col-xs-12"><span className="item-header">Date:</span>{moment(events[key].date).format("M/DD/YYYY")}</p>
             <p id="time"  className="col-md-2 col-xs-12"><span className="item-header">Time:</span>{moment(events[key].time).format("h:mm A")}</p>
             <p id="display-text" className="col-md-6 col-xs-12"><span className="item-header">Scheduled Event:</span>{events[key].event_text}</p>
             <button className="btn btn-default edit-button col-md-1 col-xs-3" onClick={() => this.handleEditClick(key)}>Edit Event</button>
@@ -149,37 +149,24 @@ export default class EventListDisplay extends React.Component {
       });
   }
 
-  renderItems(key) {
-    const events = this.props.events;
-      if(events) {
-        return (
-        <li>
-          <div id="event-data">
-          <span className="glyphicon glyphicon-remove  col-md-1 col-xs-12" onClick={() => this.handleDeleteClick(events[key].id)}></span>
-            <p id="date" className="col-md-2 col-sm-6 col-xs-12"><span className="item-header">Date:</span>{moment(events[key].date).format("MM/DD/YYYY")}</p>
-            <p id="time"  className="col-md-2 col-xs-12"><span className="item-header">Time:</span>{moment(events[key].time).format("h:mm A")}</p>
-            <p id="display-text" className="col-md-6 col-xs-12"><span className="item-header">Scheduled Event:</span>{events[key].event_text}</p>
-
-            <button className="btn btn-default edit-button col-md-1 col-xs-3" onClick={() => this.handleEditClick(events[key].id)}>Edit Event</button>
-            </div>
-        </li>
-      )
-    }
-  }
-
   render() {
     const { events } = this.props;
       return (
-      <div id="event-list">
-      <h2>Scheduled Events:</h2>
-      <ul>
-        {Object.keys(events)
-          .map((key) => {return this.renderItemOrEditField(key)})}
-      </ul>
-      </div>
-    );
+        <div id="event-list">
+          <Link to="/new">
+            <button className="btn btn-default create-event-btn">
+            + Create New Event
+            </button>
+          </Link>
+          <h2>Scheduled Events:</h2>
+          <ul>
+            {Object.keys(events)
+            .map((key) => {return this.renderItemOrEditField(key)})}
+          </ul>
+        </div>
+      );
+    }
   }
-}
 
 const propTypes = {
   event: React.PropTypes.object,
