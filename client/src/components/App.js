@@ -16,7 +16,8 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       events: [],
-      isLoggedIn: false
+      isLoggedIn: false,
+      isAddingEvent: false
     }
 
   this.getListData = this.getListData.bind(this);
@@ -24,6 +25,8 @@ export default class App extends React.Component {
   this.loginPost = this.loginPost.bind(this);
   this.handleLogout = this.handleLogout.bind(this);
   this.renderEventsIfLoggedIn = this.renderEventsIfLoggedIn.bind(this);
+  this.setIsAddingEventTrue = this.setIsAddingEventTrue.bind(this);
+  this.setIsAddingEventFalse = this.setIsAddingEventFalse.bind(this);
 
   }
 
@@ -60,6 +63,14 @@ export default class App extends React.Component {
 
   handleLogout() {
     this.setState({ isLoggedIn: false });
+  }
+
+  setIsAddingEventTrue(){
+    this.setState({ isAddingEvent: true });
+  }
+
+  setIsAddingEventFalse() {
+    this.setState({ isAddingEvent: false });
   }
 
   renderEventsIfLoggedIn() {
@@ -104,12 +115,17 @@ export default class App extends React.Component {
                 render={() =>  <EventListDisplay
                                   events={this.state.events}
                                   getListData={this.getListData}
-                                  />}
+                                  setIsAddingEventTrue={this.setIsAddingEventTrue}
+                                  setIsAddingEventFalse={this.setIsAddingEventFalse}
+                                />}
               />
               <Route exact path="/new"
-                render={() => <AddEventForm
-                                postListData={this.postListData}/>}
-               />
+                render={() => (this.state.isAddingEvent === false ? <Redirect push to='/events' /> : <AddEventForm
+                                postListData={this.postListData}
+                                isAddingEvent={this.state.isAddingEvent}
+                                setIsAddingEventFalse={this.setIsAddingEventFalse}
+                                setIsAddingEventTrue={this.setIsAddingEventTrue}
+                                />) } />
 
             </Switch>
           </div>

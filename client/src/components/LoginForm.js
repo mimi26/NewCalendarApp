@@ -21,10 +21,7 @@ export default class LoginForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    //reroute back to home
     this.props.loginPost(this.state);
-
-
   }
 
   handleUsernameChange(event) {
@@ -35,15 +32,11 @@ export default class LoginForm extends React.Component {
     this.setState({ password: event.target.value });
   }
 
-  handleClick() {
-    <Link to="/"></Link>
-  }
-
-  keyPress(e) {
-    if (e.charCode === 13) {
-      this.handleClick();
-    }
-  }
+  // keyPress(e) {
+  //   if (e.charCode === 13) {
+  //     this.handleClick();
+  //   }
+  // }
 
   render() {
     return (
@@ -60,12 +53,12 @@ export default class LoginForm extends React.Component {
             type="password"
             value={this.state.password}
             onChange={this.handlePasswordChange}
-            onKeyPress={(e) => this.keyPress(e)}
+
           />
           <input
             type="submit"
             value="Login"
-            onClick={this.handleClick}
+
           />
 
         </form>

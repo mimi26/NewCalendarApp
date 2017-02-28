@@ -37,5 +37,5 @@ I would also like to add the ability to access map data for the event's location
 
 ##Contributers
 
-Impossible to list everyone who helped with both moral and practical support, but Jennifer Kaplan helped keep me on track. Kate and Ariana helped solve a problem I was stuck on an entire day. Vince inspired this whole React-Express endeavor by breaking down the process in an easy to understand way.
+Impossible to list everyone who helped with both moral and practical support, but Jennifer Kaplan helped keep me on track. Kate and Ariana helped solve a problem I was stuck on an entire day. Vince inspired this whole React-Express endeavor by breaking down the process in an easy to understand way. J helped me with React Router.
 

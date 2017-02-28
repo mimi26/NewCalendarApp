@@ -12,7 +12,6 @@ export default class AddEventForm extends React.Component {
         unformattedDateValue: '',
         formattedTimeValue: '',
         unformattedTimeValue: '',
-        isAddingEvent: false
       }
 
     this.handleDateChange = this.handleDateChange.bind(this);
@@ -20,13 +19,13 @@ export default class AddEventForm extends React.Component {
     this.handleTextChange = this.handleTextChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.renderAddButtonOrForm = this.renderAddButtonOrForm.bind(this);
-    this.handleCreateEventClick = this.handleCreateEventClick.bind(this);
     this.keyPress = this.keyPress.bind(this);
 
   }
 
   handleSubmit(e) {
     e.preventDefault();
+    this.props.setIsAddingEventFalse();
   }
 
   handleClick(event) {
@@ -37,11 +36,11 @@ export default class AddEventForm extends React.Component {
       event_text: this.state.eventTextValue
     });
     this.addEventForm.reset();
+    this.props.setIsAddingEventFalse();
     this.setState({
       unformattedDateValue: '',
       formattedTimeValue: '',
       eventTextValue: '',
-      isAddingEvent: false
     });
   }
 
@@ -65,10 +64,6 @@ export default class AddEventForm extends React.Component {
     this.setState({ eventTextValue });
   }
 
-  handleCreateEventClick() {
-    this.setState({ isAddingEvent: true });
-  }
-
   keyPress(e) {
     if (e.charCode === 13) {
       this.handleClick(e);
@@ -76,7 +71,6 @@ export default class AddEventForm extends React.Component {
   }
 
   renderAddButtonOrForm() {
-    if(this.state.isAddingEvent) {
       return (
         <div>
           <form
@@ -115,15 +109,7 @@ export default class AddEventForm extends React.Component {
             </div>
           </form>
         </div>
-        );
-
-    } else {
-      return (
-        <button className="btn btn-default create-event-btn"
-          onClick={this.handleCreateEventClick}>+ Create New Event
-        </button>
-        );
-    }
+     );
   }
 
   render() {

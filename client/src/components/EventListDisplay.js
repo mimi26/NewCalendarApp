@@ -22,6 +22,7 @@ export default class EventListDisplay extends React.Component {
     this.handleTimeChange = this.handleTimeChange.bind(this);
     this.handleTextChange = this.handleTextChange.bind(this);
     this.keyPress = this.keyPress.bind(this);
+    this.handleCreateEventClick = this.handleCreateEventClick.bind(this);
   }
 
   handleEditClick(eventIndex) {
@@ -149,12 +150,18 @@ export default class EventListDisplay extends React.Component {
       });
   }
 
+    handleCreateEventClick() {
+      this.props.setIsAddingEventTrue();
+    }
+
   render() {
     const { events } = this.props;
       return (
         <div id="event-list">
           <Link to="/new">
-            <button className="btn btn-default create-event-btn">
+            <button
+              className="btn btn-default create-event-btn"
+              onClick={this.handleCreateEventClick}>
             + Create New Event
             </button>
           </Link>
