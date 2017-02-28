@@ -20,10 +20,21 @@ router.get('/api', (req, res, next) => {
    })
 })
 
-router.delete('/api/:id', (req, res) => {
+router.delete('/api/:id', (req, res, next) => {
   models.Event.destroy({
     where: { id: req.params.id }
   }).then((event) => {
+    res.send({event})
+  });
+});
+
+router.put('/api/:id', (req, res) => {
+  models.Event.update({
+    date: req.body.date,
+    time: req.body.time,
+    event_text: req.body.event_text,
+  }, { where: { id: req.params.id } })
+  .then((event) => {
     res.send({event})
   });
 });

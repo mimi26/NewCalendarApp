@@ -24,15 +24,16 @@ export default class EventListDisplay extends React.Component {
 
   }
 
-  handleEditClick(eventId) {
+  handleEditClick(eventIndex) {
     const { events } = this.props;
+    console.log(events);
       this.setState({
-        eventToEdit: eventId,
-        formattedDateValue: events[eventId].eventData.formattedDateValue,
-        formattedTimeValue: events[eventId].eventData.formattedTimeValue,
-        unformattedDateValue: events[eventId].eventData.unformattedDateValue,
-        unformattedTimeValue: events[eventId].eventData.unformattedTimeValue,
-        eventTextValue: events[eventId].eventData.eventTextValue
+        eventToEdit: events[eventIndex].id,
+        formattedDateValue: events[eventIndex].date,
+        formattedTimeValue: events[eventIndex].formattedTimeValue,
+        unformattedDateValue: events[eventIndex].time,
+        unformattedTimeValue: events[eventIndex].unformattedTimeValue,
+        eventTextValue: events[eventIndex].event_text
   });
 }
 
@@ -43,7 +44,11 @@ export default class EventListDisplay extends React.Component {
 
   patchListData(editedData) {
     let id = this.state.eventToEdit;
-    axios.patch(`https://calendarapp-eca54.firebaseio.com/${id}.json`, { eventData: editedData })
+    axios.put(`/events/api/${id}`, {
+        date: this.state.formattedDateValue,
+        time: this.state.unformattedTimeValue,
+        event_text: this.state.eventTextValue
+     })
       .then((response) => {
       this.props.getListData();
       this.setState({ eventToEdit: null });
@@ -82,7 +87,7 @@ export default class EventListDisplay extends React.Component {
 
   renderItemOrEditField(key) {
     const { events } = this.props;
-      if ( this.state && this.state.eventToEdit === key ) {
+      if ( this.state && this.state.eventToEdit === events[key].id) {
         return (
           <li  key={key}  className="event-item">
             <form
@@ -110,23 +115,23 @@ export default class EventListDisplay extends React.Component {
                 placeholder="Event details"
                 ref={(input) => this.eventText = input}
                 onChange={this.handleTextChange}
-                defaultValue={events[key].eventData.eventTextValue}
+                defaultValue={events[key].eventTextValue}
                 onKeyPress={(e) => this.keyPress(e)}
               >
               </textarea>
             </form>
           </li>
       );
-    } else {
+    } else if (events) {
       return (
-        <li  key={key} className="event-item row">
-          <span className="glyphicon glyphicon-remove  col-md-1 col-xs-12" onClick={() => this.handleDeleteClick(key)}></span>
+        <li>
           <div id="event-data">
-            <p id="date" className="col-md-2 col-sm-6 col-xs-12"><span className="item-header">Date:</span>{events[key].eventData.formattedDateValue}</p>
-            <p id="time"  className="col-md-2 col-xs-12"><span className="item-header">Time:</span>{events[key].eventData.formattedTimeValue}</p>
-            <p id="display-text" className="col-md-6 col-xs-12"><span className="item-header">Scheduled Event:</span>{events[key].eventData.eventTextValue}</p>
-          </div>
+          <span className="glyphicon glyphicon-remove  col-md-1 col-xs-12" onClick={() => this.handleDeleteClick(events[key].id)}></span>
+            <p id="date" className="col-md-2 col-sm-6 col-xs-12"><span className="item-header">Date:</span>{moment(events[key].date).format("MM/DD/YYYY")}</p>
+            <p id="time"  className="col-md-2 col-xs-12"><span className="item-header">Time:</span>{moment(events[key].time).format("h:mm A")}</p>
+            <p id="display-text" className="col-md-6 col-xs-12"><span className="item-header">Scheduled Event:</span>{events[key].event_text}</p>
             <button className="btn btn-default edit-button col-md-1 col-xs-3" onClick={() => this.handleEditClick(key)}>Edit Event</button>
+            </div>
         </li>
       );
     }
@@ -155,7 +160,7 @@ export default class EventListDisplay extends React.Component {
             <p id="time"  className="col-md-2 col-xs-12"><span className="item-header">Time:</span>{moment(events[key].time).format("h:mm A")}</p>
             <p id="display-text" className="col-md-6 col-xs-12"><span className="item-header">Scheduled Event:</span>{events[key].event_text}</p>
 
-            <button className="btn btn-default edit-button col-md-1 col-xs-3" onClick={() => this.handleEditClick(key)}>Edit Event</button>
+            <button className="btn btn-default edit-button col-md-1 col-xs-3" onClick={() => this.handleEditClick(events[key].id)}>Edit Event</button>
             </div>
         </li>
       )
@@ -169,7 +174,7 @@ export default class EventListDisplay extends React.Component {
       <h2>Scheduled Events:</h2>
       <ul>
         {Object.keys(events)
-          .map((key) => {return this.renderItems(key)})}
+          .map((key) => {return this.renderItemOrEditField(key)})}
       </ul>
       </div>
     );
