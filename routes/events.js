@@ -14,11 +14,23 @@ router.post('/api/new', (req, res, next) => {
   });
 });
 
+
+
 router.get('/api', (req, res, next) => {
   models.Event.findAll({}).then((data) => {
+    console.log('this is data:',data[0].dataValues);
     res.json({data})
    })
 })
+
+router.get('/api/:id'), (req, res, next) => {
+  models.Event.findAll({
+    where: { id: user_id }
+  }).then((data) => {
+    console.log(data)
+    res.json({data})
+  })
+}
 
 router.delete('/api/:id', (req, res, next) => {
   models.Event.destroy({
