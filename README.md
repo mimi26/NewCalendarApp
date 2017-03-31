@@ -26,23 +26,28 @@ Event Scheduler is a personal calendar app that you can use to keep track of app
 - Express-Session
 - Nodemon
 - Github
+- [Moment.js](http://momentjs.com/)
+- [react-bootstrap-datepicker](https://github.com/pushtell/react-bootstrap-date-picker) for my date picker
+- [react-datetime](https://github.com/YouCanBookMe/react-datetime) for my time picker
+- [Axios](https://github.com/mzabriskie/axios)
+- Google fonts
 
 ## Code Snippet: Setting up Events Routes
 
 ```javascript
 //server side - setting up events route routes/events.js
 router.get('/api', (req, res, next) => {
-  models.Event.findAll({}).then((data) => {
-  res.json({data})
-   })
-})
+    models.Event.findAll({}).then((data) => {
+    res.json({data})
+   });
+});
 
 //client side - API call to fetch event data client/src/components/App.js
 getListData() {
     axios.get('events/api')
-      .then((response) => {
+        .then((response) => {
         let events = response.data.data;
-      this.setState({ events });
+        this.setState({ events });
     });
   }
 
