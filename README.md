@@ -27,6 +27,30 @@ Event Scheduler is a personal calendar app that you can use to keep track of app
 - Nodemon
 - Github
 
+## Code Snippet: Setting up Events Routes
+
+```javascript
+//server side - setting up events route routes/events.js
+router.get('/api', (req, res, next) => {
+  models.Event.findAll({}).then((data) => {
+  res.json({data})
+   })
+})
+
+//client side - API call to fetch event data client/src/components/App.js
+getListData() {
+    axios.get('events/api')
+      .then((response) => {
+        let events = response.data.data;
+      this.setState({ events });
+    });
+  }
+
+componentDidMount() {
+    this.getListData();
+  }
+```
+
 ## Complications/Future Improvements
 
 Figuring out how the data flow between Express and React worked was a bit of a challenge at first. 
@@ -35,7 +59,6 @@ Future versions of this app will show weather forecast data for upcoming events.
 
 I would also like to add the ability to access map data for the event's location so users can find the location they need to get to more easily.
 
-## Contributers
+## Contributors
 
-Impossible to list everyone who helped with both moral and practical support, but Jennifer Kaplan helped keep me on track. Kate and Ariana helped solve a problem I was stuck on an entire day. Vince inspired this whole React-Express endeavor by breaking down the process in an easy to understand way. J helped me with React Router.
-
+Mimi Klein

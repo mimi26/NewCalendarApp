@@ -49,9 +49,7 @@ export default class App extends React.Component {
       .then((response) => {
         let events = response.data.data;
       this.setState({ events });
-
     });
-
   }
 
   postListData(eventData) {

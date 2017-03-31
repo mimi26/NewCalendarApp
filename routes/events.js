@@ -18,8 +18,7 @@ router.post('/api/new', (req, res, next) => {
 
 router.get('/api', (req, res, next) => {
   models.Event.findAll({}).then((data) => {
-    console.log('this is data:',data[0].dataValues);
-    res.json({data})
+  res.json({data})
    })
 })
 
