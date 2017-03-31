@@ -11,7 +11,7 @@ export default class Nav extends React.Component {
   renderLoginOrLogout() {
     if(this.props.isLoggedIn) {
       return (
-        <Link to="/logout"
+        <Link to="/"
           onClick={this.props.handleLogout}>Logout</Link>
         )
       } else {

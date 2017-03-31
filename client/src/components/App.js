@@ -105,6 +105,9 @@ export default class App extends React.Component {
             <div className="main container">
 
             <Switch>
+              <Route exact path="/"
+                render={() => (!this.state.isLoggedIn ? <Redirect push to="/login" /> : <Redirect push to="/events" />)} />
+                
               <Route exact path="/register" component={RegisterForm} />
               <Route exact path="/login"
                 render={() => (this.state.isLoggedIn ? <Redirect push to='/events' /> : <LoginForm
@@ -112,13 +115,13 @@ export default class App extends React.Component {
                                 />) } />
 
               <Route exact path="/events"
-                render={() =>  <EventListDisplay
-                                  events={this.state.events}
-                                  getListData={this.getListData}
-                                  setIsAddingEventTrue={this.setIsAddingEventTrue}
-                                  setIsAddingEventFalse={this.setIsAddingEventFalse}
-                                />}
-              />
+                render={() => (!this.state.isLoggedIn ? <Redirect push to='/login' /> : <EventListDisplay
+                                events={this.state.events}
+                                getListData={this.getListData}
+                                setIsAddingEventTrue={this.setIsAddingEventTrue}
+                                setIsAddingEventFalse={this.setIsAddingEventFalse}  
+                 />) } />
+
               <Route exact path="/new"
                 render={() => (this.state.isAddingEvent === false ? <Redirect push to='/events' /> : <AddEventForm
                                 postListData={this.postListData}
