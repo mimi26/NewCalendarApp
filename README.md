@@ -8,7 +8,7 @@ https://eventschedulerapp.herokuapp.com/events
 
 ## Description
 
-Event Scheduler is a personal calendar app that you can use to keep track of appointments, events, interviews, birthdays, etc.
+Event Scheduler is a personal calendar app that you can use to keep track of appointments, events, interviews, birthdays, etc. I created this by building out the back end of my [CalendarApp](https://github.com/mimi26/CalendarApp) that I originally built as a React app. 
 
 ## Technologies Used
 - HTML
