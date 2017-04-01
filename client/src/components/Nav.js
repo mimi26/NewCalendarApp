@@ -24,18 +24,18 @@ export default class Nav extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="fixed">
         <ul className="nav">
-          <li>
+          <li className="nav-item">
             <Link to="/register">Register</Link>
           </li>
-          <li>
+          <li className="nav-item">
             <Link to="/">Home</Link>
           </li>
-          <li>
+          <li className="nav-item">
             <Link to="/events">Scheduled Events</Link>
           </li>
-          <li>
+          <li className="nav-item">
             {this.renderLoginOrLogout()}
           </li>
           </ul>

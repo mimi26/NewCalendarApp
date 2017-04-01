@@ -41,6 +41,7 @@ export default class LoginForm extends React.Component {
   render() {
     return (
       <div>
+        <h3 className="open text-center">Log in to add or edit your events</h3>
         <form onSubmit={this.handleSubmit}  className="form">
           <label>Username:</label>
           <input

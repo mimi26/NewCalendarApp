@@ -8,8 +8,16 @@ body {
   height: 170px;
 }
 
-h1 {
-  font-family: 'Fredericka the Great', cursive;
+ /*{
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 30px;
+  color: black;
+}*/
+
+h3, h2 {
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 30px;
+  color: black;
 }
 
 .create-event-btn {
@@ -20,15 +28,14 @@ h1 {
   width: 100%;
 }
 
-.glyphicon-remove, h2 {
+.glyphicon-remove {
   color: aliceblue;
 }
 
 h2 {
-  margin-bottom: 20px;
-  font-family: 'Pompiere', cursive;
+  /*margin-bottom: 20px;
+  font-family: 'Pompiere', cursive;*/
   font-size: 40px;
-
 }
 
 #form {
@@ -97,12 +104,25 @@ li {
 
 .nav {
   display: flex;
-  justify-content: space-between;
+  font-size: 18px;
+  background: #eeeeee;
+  padding-bottom: 80px;
+}
+
+.nav-item {
+  margin: 30px 120px 0 120px;
+}
+
+.fixed {
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 .heading {
-  margin-top: 100px;
+  margin-top: 150px;
   margin-left: 40px;
+  font-family: 'Fredericka the Great', cursive;
 }
 
 .form {
