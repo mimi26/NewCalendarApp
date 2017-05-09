@@ -24,7 +24,7 @@ router.get('/api', (req, res, next) => {
 
 router.get('/api/:id'), (req, res, next) => {
   models.Event.findAll({
-    where: { id: user_id }
+    where: { id: req.params.user_id }
   }).then((data) => {
     console.log(data)
     res.json({data})

@@ -19,8 +19,7 @@ function loginRedirect(req, res, next) {
 function createUser(req, res, next) {
   const salt = bcrypt.genSaltSync();
   const hash = bcrypt.hashSync(req.body.password, salt);
- console.log(req);
-  return models.User.create({
+   return models.User.create({
     username: req.body.username,
     password: hash,
     firstName: req.body.firstName,

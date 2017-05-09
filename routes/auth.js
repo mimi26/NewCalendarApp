@@ -9,12 +9,14 @@ router.post('/api/register', authHelpers.createUser, (req, res, next)  => {
   .then((response) => {
     console.log('registration successful');
   })
-  .catch((err) => { res.status(500).json({ status: 'error' }); });
+  .catch((err) => { res.status(500).json({ status: 'error' });
+   });
 });
 
-router.post('/api/login', passport.authenticate('local', {
+router.post('/api/login', passport.authenticate('local', 
+  {
     successRedirect: '/user',
-    failureRedirect: '/auth/login',
+    failureRedirect: '/auth/api/login',
     failureFlash: true
   })
 );

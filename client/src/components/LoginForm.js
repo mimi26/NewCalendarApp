@@ -11,7 +11,6 @@ export default class LoginForm extends React.Component {
     this.state = {
       username: '',
       password: ''
-
     }
 
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -54,14 +53,11 @@ export default class LoginForm extends React.Component {
             type="password"
             value={this.state.password}
             onChange={this.handlePasswordChange}
-
           />
           <input
             type="submit"
             value="Login"
-
           />
-
         </form>
       </div>
     );
