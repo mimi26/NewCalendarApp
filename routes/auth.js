@@ -16,10 +16,8 @@ router.post('/api/register', authHelpers.createUser, (req, res, next)  => {
 router.post('/api/login', passport.authenticate('local', 
   {
     successRedirect: '/user',
-    failureRedirect: '/auth/api/login',
-    failureFlash: true
-  })
-);
+    failureRedirect: '/auth/login'
+  }));
 
 router.get('/logout', (req, res) => {
   req.logout();
