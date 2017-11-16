@@ -1,6 +1,4 @@
 import React from 'react';
-import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
-import axios from 'axios';
 
 export default class LoginForm extends React.Component {
 

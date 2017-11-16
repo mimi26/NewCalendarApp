@@ -1,8 +1,9 @@
 import React from 'react';
-import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import '../../src/App.css';
 import '../../src/TimePicker.css';
 import axios from 'axios';
+import Auth from '../modules/Auth';
 import AddEventForm from './AddEventForm';
 import EventListDisplay from './EventListDisplay';
 import RegisterForm from './RegisterForm';
@@ -17,7 +18,9 @@ export default class App extends React.Component {
     this.state = {
       events: [],
       isLoggedIn: false,
-      isAddingEvent: false
+      isAddingEvent: false,
+      auth: Auth.isUserAuthenticated(),
+      id: Auth.idUser(),
     }
 
   this.getListData = this.getListData.bind(this);
@@ -27,6 +30,7 @@ export default class App extends React.Component {
   this.renderEventsIfLoggedIn = this.renderEventsIfLoggedIn.bind(this);
   this.setIsAddingEventTrue = this.setIsAddingEventTrue.bind(this);
   this.setIsAddingEventFalse = this.setIsAddingEventFalse.bind(this);
+  this.handleRegisterUserSubmit = this.handleRegisterUserSubmit.bind(this);
 
   }
 
@@ -34,10 +38,28 @@ export default class App extends React.Component {
     this.getListData();
     }
 
+  handleRegisterUserSubmit(e) {
+    e.preventDefault();
+    axios.post('/auth/api/register', {
+      user: {
+        firstName: e.target.firstName.value,
+        lastName: e.target.lastName.value,
+        email: e.target.email.value,
+        password: e.target.password.value
+      }
+    }).then(jsonRes => {
+      if (jsonRes.token !== undefined) {
+        Auth.authenticateUser(jsonRes.token);
+      }
+      this.setState({
+        auth: Auth.isUserAuthenticated()
+      });
+    }).catch(err => console.log(err));
+  }
+
   loginPost(data) {
     axios.post('/auth/api/login', data)
     .then((response) => {
-      console.log('you are logged in!');
       this.setState({ isLoggedIn: true })
       }).catch((err) => {
       console.log(err);
@@ -60,7 +82,10 @@ export default class App extends React.Component {
   }
 
   handleLogout() {
-    this.setState({ isLoggedIn: false });
+    axios.get('/auth/api/logout')
+    .then(res => {
+      this.setState({ isLoggedIn: false });
+    });
   }
 
   setIsAddingEventTrue(){
@@ -104,23 +129,23 @@ export default class App extends React.Component {
 
             <Switch>
               <Route exact path="/"
-                render={() => (!this.state.isLoggedIn ? <Redirect push to="/login" /> : <Redirect push to="/events" />)} />
+                render={() => (!Auth.isUserAuthenticated() ? <Redirect push to="/login" /> : <Redirect push to="/events" />)} />
                 
-              <Route exact path="/register" component={RegisterForm} />
-              <Route exact path="/login"
-                render={() => (this.state.isLoggedIn ? <Redirect push to='/events' /> : <LoginForm
+              <Route path="/register" render={(props) => <RegisterForm handleRegisterUserSubmit={this.handleRegisterUserSubmit} />} />
+              <Route path="/login"
+                render={() => (Auth.isUserAuthenticated() ? <Redirect push to='/events' /> : <LoginForm
                                 loginPost={this.loginPost}
                                 />) } />
 
-              <Route exact path="/events"
-                render={() => (!this.state.isLoggedIn ? <Redirect push to='/login' /> : <EventListDisplay
+              <Route path="/events"
+                render={() => (!Auth.isUserAuthenticated() ? <Redirect push to='/login' /> : <EventListDisplay
                                 events={this.state.events}
                                 getListData={this.getListData}
                                 setIsAddingEventTrue={this.setIsAddingEventTrue}
                                 setIsAddingEventFalse={this.setIsAddingEventFalse}  
                  />) } />
 
-              <Route exact path="/new"
+              <Route path="/new"
                 render={() => (this.state.isAddingEvent === false ? <Redirect push to='/events' /> : <AddEventForm
                                 postListData={this.postListData}
                                 isAddingEvent={this.state.isAddingEvent}

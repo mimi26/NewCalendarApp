@@ -19,7 +19,7 @@ router.post('/api/login', passport.authenticate('local',
     failureRedirect: '/auth/login'
   }));
 
-router.get('/logout', (req, res) => {
+router.get('/api/logout', (req, res) => {
   req.logout();
   res.redirect('/');
 });

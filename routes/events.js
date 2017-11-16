@@ -8,7 +8,6 @@ router.post('/api/new', (req, res, next) => {
     time: req.body.time,
     event_text: req.body.event_text,
     user_id: req.user.id
-
   }).then((response) => {
     res.send({response})
   });
@@ -17,19 +16,20 @@ router.post('/api/new', (req, res, next) => {
 
 
 router.get('/api', (req, res, next) => {
+  console.log("this is req.user:", req.user.dataValues.id)
   models.Event.findAll({}).then((data) => {
   res.json({data})
    })
 })
 
-router.get('/api/:id'), (req, res, next) => {
-  models.Event.findAll({
-    where: { id: req.params.user_id }
-  }).then((data) => {
-    console.log(data)
-    res.json({data})
-  })
-}
+// router.get('/api'), (req, res, next) => {
+//   models.Event.findAll({
+//     where: { user_id: req.user }
+//   }).then((data) => {
+//     console.log(data)
+//     res.json({data})
+//   })
+// }
 
 router.delete('/api/:id', (req, res, next) => {
   models.Event.destroy({

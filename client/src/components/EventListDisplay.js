@@ -4,8 +4,6 @@ import DatePicker from 'react-bootstrap-date-picker';
 import DateTime from 'react-datetime';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import AddEventForm from './AddEventForm';
-
 
 export default class EventListDisplay extends React.Component {
   constructor() {

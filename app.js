@@ -34,6 +34,10 @@ app.use('/auth', authRoutes);
 app.use('/events', events);
 app.use(express.static(path.join(__dirname, 'client/build')));
 
+app.get('/test', (req, res, next) => {
+  res.send({hello: 'world'});
+})
+
 //use for dealing with database
 // app.post('/api/new', (req, res) => {
 //   res.json({ message: 'hello world' });
